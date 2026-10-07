@@ -142,27 +142,67 @@
 
 <!-- REVIEWS -->
 <section id="reviews" class="section">
-  <div class="container reviews-grid">
-    <div>
-      <p class="eyebrow">Testimonials</p>
-      <h2>Our Clients Glow & Tell</h2>
-      <div class="stars">★★★★★ <span>4.9 / 5 from 2,300+ reviews</span></div>
-      <div class="review-box">
-        <p id="reviewText">“My bridal makeup lasted 14 hours through tears and hugs! Rosy understood my skin perfectly — I felt like the best version of me.”</p>
-        <strong id="reviewName">— Ayesha K., Bride</strong>
-        <div class="review-nav"><button id="prevR">←</button><button id="nextR">→</button></div>
+  <div class="container">
+    <p class="eyebrow">Testimonials</p>
+    <h2>Our Clients Glow & Tell</h2>
+    <p class="sub">Real reviews from brides, party clients & shop lovers — verified by our studio.</p>
+
+    <div class="reviews-grid">
+      <div class="rev-summary card">
+        <div class="rev-score">
+          <strong>4.9</strong>
+          <div>
+            <div class="stars" style="margin:0">★★★★★</div>
+            <small>2,300+ verified reviews</small>
+          </div>
+        </div>
+        <div class="rev-bars">
+          <div><span>5★</span><div class="bar"><i style="width:88%"></i></div><b>88%</b></div>
+          <div><span>4★</span><div class="bar"><i style="width:9%"></i></div><b>9%</b></div>
+          <div><span>3★</span><div class="bar"><i style="width:2%"></i></div><b>2%</b></div>
+          <div><span>2★</span><div class="bar"><i style="width:1%"></i></div><b>1%</b></div>
+        </div>
+        <div class="filters" style="margin:16px 0 0">
+          <button class="chip active" data-rfilter="all">All</button>
+          <button class="chip" data-rfilter="5">5★</button>
+          <button class="chip" data-rfilter="4">4★</button>
+          <button class="chip" data-rfilter="bridal">Bridal</button>
+        </div>
+        <a href="#writeReview" class="btn btn-primary full" style="margin-top:16px">Write a Review ✍️</a>
+      </div>
+
+      <div class="booking-mini">
+        <h3>Why Rosy & Loli?</h3>
+        <ul>
+          <li>💎 Certified HD & Airbrush artists</li>
+          <li>🌿 Skin-first, cruelty-free products</li>
+          <li>🏠 At-home & in-studio service</li>
+          <li>📸 Free trial for bridal packages</li>
+        </ul>
+        <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?w=700&q=80&auto=format&fit=crop" alt="salon" />
       </div>
     </div>
-    <div class="booking-mini">
-      <h3>Why Rosy & Loli?</h3>
-      <ul>
-        <li>💎 Certified HD & Airbrush artists</li>
-        <li>🌿 Skin-first, cruelty-free products</li>
-        <li>🏠 At-home & in-studio service</li>
-        <li>📸 Free trial for bridal packages</li>
-      </ul>
-      <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?w=700&q=80&auto=format&fit=crop" alt="salon" />
-    </div>
+
+    <div class="grid-3" id="reviewGrid" style="margin-top:22px"></div>
+
+    <form id="writeReview" class="form" style="margin-top:22px">
+      <h3 style="font-size:22px">Share Your Glow Experience</h3>
+      <p class="sub" style="margin:0">Your review appears instantly below. We read every single one 💖</p>
+      <div class="row">
+        <input id="rName" placeholder="Your name *" required />
+        <select id="rService"><option>Bridal Makeup</option><option>Party Glam</option><option>Skin + Facial Glow</option><option>Hair & Styling</option><option>Shop Product</option></select>
+      </div>
+      <div class="row">
+        <div class="rate-input" id="rateInput">
+          <span>Your rating:</span>
+          <button type="button" data-v="1">★</button><button type="button" data-v="2">★</button><button type="button" data-v="3">★</button><button type="button" data-v="4">★</button><button type="button" data-v="5" class="on">★</button>
+        </div>
+        <input id="rTitle" placeholder="Review headline (e.g. Best bridal look!)" />
+      </div>
+      <textarea id="rText" rows="3" placeholder="How was your makeup, skin, service...? *" required></textarea>
+      <button class="btn btn-primary full" type="submit">Post Review →</button>
+      <p class="form-msg" id="reviewMsg"></p>
+    </form>
   </div>
 </section>
 

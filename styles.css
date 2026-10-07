@@ -81,13 +81,32 @@ h2{font-size:clamp(28px,4vw,42px);margin:8px 0}
 .amount span{font-size:15px;color:var(--muted);font-family:'Poppins'}
 .price ul{list-style:none;text-align:left;margin:16px 0 20px;display:grid;gap:8px;color:#4a323b}
 /* REVIEWS */
-.reviews-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
+.reviews-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
 .stars{color:#eab308;font-size:18px;margin:10px 0 16px}
 .stars span{color:var(--muted);font-size:14px}
-.review-box{background:var(--bg);border:1px solid #ffdcea;border-radius:18px;padding:26px;font-size:18px}
-.review-box strong{display:block;margin-top:14px;font-size:15px}
-.review-nav{margin-top:14px;display:flex;gap:10px}
-.review-nav button{width:44px;height:44px;border-radius:50%;border:1px solid #ffc4da;background:#fff;cursor:pointer;font-size:18px}
+.rev-summary{padding:24px}
+.rev-score{display:flex;gap:14px;align-items:center}
+.rev-score strong{font-size:52px;font-family:'Playfair Display',serif;line-height:1}
+.rev-score small{color:var(--muted)}
+.rev-bars{display:grid;gap:8px;margin-top:16px;font-size:13px;font-weight:600}
+.rev-bars>div{display:flex;align-items:center;gap:10px}
+.rev-bars .bar{flex:1;background:#ffe6f0;border-radius:999px;height:9px;overflow:hidden}
+.rev-bars .bar i{display:block;height:100%;background:linear-gradient(135deg,var(--pink),#ff7ab3);border-radius:999px}
+.rev-card{padding:20px;display:flex;flex-direction:column;gap:10px}
+.rev-top{display:flex;gap:12px;align-items:center}
+.avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0}
+.rev-top small{color:var(--muted);display:block}
+.rev-stars{color:#eab308;font-size:14px}
+.verified{background:#ecfdf5;color:#15803d;border:1px solid #a7f3d0;font-size:11px;font-weight:700;padding:2px 10px;border-radius:999px;margin-left:auto;white-space:nowrap}
+.rev-card h4{font-family:'Poppins';font-size:16px}
+.rev-card p{color:#5b424c;font-size:14px}
+.rev-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px dashed #ffd3e4}
+.helpful{border:1px solid #ffc9dd;background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;font-size:13px}
+.helpful:hover{background:#fff0f6}
+.helpful.liked{background:var(--dark);color:#fff;border-color:var(--dark)}
+.rate-input{display:flex;align-items:center;gap:4px;background:#fff8fb;border:1.5px solid #ffd3e4;border-radius:12px;padding:11px 14px;font-weight:600;font-size:14px}
+.rate-input button{border:0;background:none;font-size:22px;color:#f1c6d8;cursor:pointer}
+.rate-input button.on{color:#eab308}
 .booking-mini{background:var(--dark);color:#ffe6f0;border-radius:20px;padding:26px}
 .booking-mini ul{list-style:none;display:grid;gap:10px;margin:14px 0 18px}
 /* BOOKING */

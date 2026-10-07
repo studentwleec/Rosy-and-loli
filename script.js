@@ -74,17 +74,74 @@ document.getElementById('checkout').onclick=()=>{
   cart={};updateCart();closeDrawer();
 };
 
-// Reviews slider
-const reviews=[
-  {t:'“My bridal makeup lasted 14 hours through tears and hugs! Rosy understood my skin perfectly — I felt like the best version of me.”', n:'— Ayesha K., Bride'},
-  {t:'“Best party glam in town. My eyeshadow didn’t crease all night and the lashes felt so light. Got compliments all evening!”', n:'— Maria S., Party Client'},
-  {t:'“I order their lipsticks monthly. Pigmented, non-drying and 100% original. The facial glow before my shoot was amazing.”', n:'— Priya R., Model'},
+// Reviews — rich section, same design style
+let userRating = 5;
+let rFilter = 'all';
+const reviewData = [
+  {name:'Ayesha K.', tag:'Bride', service:'Bridal Makeup', stars:5, date:'Sept 2026', title:'My bridal makeup lasted 14 hours!', text:'Through tears and hugs it stayed flawless. Rosy understood my skin perfectly — I felt like the best version of me.', color:'#e93a7d', helpful:214},
+  {name:'Maria S.', tag:'Party Client', service:'Party Glam', stars:5, date:'Sept 2026', title:'Compliments all evening', text:'Best party glam in town. Eyeshadow didn’t crease all night and the lashes felt so light and natural.', color:'#7c3aed', helpful:96},
+  {name:'Priya R.', tag:'Model', service:'Shop Product', stars:5, date:'Aug 2026', title:'Lipsticks I reorder monthly', text:'Pigmented, non-drying and 100% original. The hydra-glow facial before my shoot gave the perfect base.', color:'#059669', helpful:143},
+  {name:'Sana M.', tag:'Bridesmaid', service:'Hair & Styling', stars:4, date:'Aug 2026', title:'Gorgeous hair, slight wait', text:'My waves and my sister’s bun looked stunning in photos. Had to wait 20 mins past appointment, but worth it.', color:'#ea580c', helpful:58},
+  {name:'Hira T.', tag:'Bride', service:'Bridal Makeup', stars:5, date:'July 2026', title:'Airbrush magic for oily skin', text:'I have very oily skin and nothing stayed before. Their airbrush + setting routine kept me matte for 10+ hours.', color:'#0e7490', helpful:187},
+  {name:'Elena D.', tag:'Facial Client', service:'Skin + Facial Glow', stars:4, date:'July 2026', title:'Glowing skin, gentle products', text:'De-tan + glow facial made my skin so smooth. Makeup applied like a dream after. Will come monthly.', color:'#be123c', helpful:41},
 ];
-let ri=0;
-const rt=document.getElementById('reviewText'), rn=document.getElementById('reviewName');
-document.getElementById('nextR').onclick=()=>{ri=(ri+1)%reviews.length;rt.textContent=reviews[ri].t;rn.textContent=reviews[ri].n;};
-document.getElementById('prevR').onclick=()=>{ri=(ri-1+reviews.length)%reviews.length;rt.textContent=reviews[ri].t;rn.textContent=reviews[ri].n;};
-setInterval(()=>{ri=(ri+1)%reviews.length;if(rt){rt.textContent=reviews[ri].t;rn.textContent=reviews[ri].n;}},6000);
+function starStr(n){ return '★★★★★'.slice(0,n) + '☆☆☆☆☆'.slice(0,5-n); }
+function renderReviews(){
+  const wrap = document.getElementById('reviewGrid');
+  if(!wrap) return;
+  const list = reviewData.filter(r => {
+    if(rFilter==='all') return true;
+    if(rFilter==='bridal') return /bridal/i.test(r.service);
+    return r.stars === Number(rFilter);
+  });
+  wrap.innerHTML = list.length ? '' : `<p class="sub">No reviews match this filter yet.</p>`;
+  list.forEach((r, idx) => {
+    const el = document.createElement('article');
+    el.className = 'card rev-card';
+    el.innerHTML = `<div class="rev-top">
+        <div class="avatar" style="background:${r.color}">${r.name.charAt(0)}</div>
+        <div><strong>${r.name}</strong><small>${r.tag} • ${r.date}</small></div>
+        <span class="verified">✔ Verified</span>
+      </div>
+      <div class="rev-stars">${starStr(r.stars)} <span class="price-tag">${r.service}</span></div>
+      <h4>${r.title}</h4><p>“${r.text}”</p>
+      <div class="rev-foot"><small style="color:var(--muted)">Was this helpful?</small>
+      <button class="helpful" data-i="${idx}">♡ Helpful (${r.helpful})</button></div>`;
+    wrap.appendChild(el);
+  });
+  wrap.querySelectorAll('.helpful').forEach(b => b.addEventListener('click', () => {
+    const r = list[Number(b.dataset.i)];
+    r.helpful++; b.textContent = `♥ Helpful (${r.helpful})`; b.classList.add('liked');
+  }));
+}
+renderReviews();
+document.querySelectorAll('[data-rfilter]').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('[data-rfilter]').forEach(x => x.classList.remove('active'));
+  c.classList.add('active'); rFilter = c.dataset.rfilter; renderReviews();
+}));
+document.querySelectorAll('#rateInput button').forEach(b => b.addEventListener('click', () => {
+  userRating = Number(b.dataset.v);
+  document.querySelectorAll('#rateInput button').forEach(x => x.classList.toggle('on', Number(x.dataset.v) <= userRating));
+}));
+const wr = document.getElementById('writeReview');
+if(wr) wr.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('rName').value.trim();
+  const text = document.getElementById('rText').value.trim();
+  const service = document.getElementById('rService').value;
+  const title = document.getElementById('rTitle').value.trim() || 'Lovely experience';
+  const msg = document.getElementById('reviewMsg');
+  if(!name || !text){ msg.style.color = '#dc2626'; msg.textContent = 'Please add your name and review.'; return; }
+  const colors = ['#e93a7d','#7c3aed','#059669','#ea580c','#0e7490'];
+  reviewData.unshift({name, tag:'New Client', service, stars:userRating, date:'Just now', title, text, color:colors[reviewData.length % colors.length], helpful:0});
+  rFilter = 'all';
+  document.querySelectorAll('[data-rfilter]').forEach(x => x.classList.toggle('active', x.dataset.rfilter === 'all'));
+  renderReviews();
+  msg.style.color = '#16a34a'; msg.textContent = `Thank you ${name}! Your ${userRating}★ review is live below 💖`;
+  e.target.reset(); userRating = 5;
+  document.querySelectorAll('#rateInput button').forEach(x => x.classList.toggle('on', Number(x.dataset.v) <= 5));
+  document.getElementById('reviewGrid').scrollIntoView({behavior:'smooth', block:'center'});
+});
 
 // Booking
 document.querySelectorAll('[data-book]').forEach(b=>b.addEventListener('click',()=>{
